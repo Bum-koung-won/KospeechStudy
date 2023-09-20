@@ -35,6 +35,11 @@ from kospeech.models import (
 
 app = Flask(import_name=__name__)
 
+if torch.cuda.is_available():
+    ondevice = 'cuda'
+else:
+    ondevice = 'cpu'
+
 path_dir = '*********Input audio path for inference*********'
 
 @app.route('/')
@@ -82,7 +87,7 @@ def infer():
     audio_file_path = app.config["AUDIO_PATH"]
     parser = argparse.ArgumentParser(description='KoSpeech')
     parser.add_argument('--model_path', type=str, required=False, default='*********Input Model Path for inference*********')
-    parser.add_argument('--device', type=str, required=False, default='cuda')
+    parser.add_argument('--device', type=str, required=False, default=ondevice)
     opt = parser.parse_args()
 
 
