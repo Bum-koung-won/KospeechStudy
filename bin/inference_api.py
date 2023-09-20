@@ -50,11 +50,8 @@ def upload_file():
     if file.filename == '':
         return 'No selected file.'
     file.save(os.path.join("*********Input audio path for inference*********", file.filename))
-    idx_num = len(file.filename) - (file.filename.index('.'))
-    input_audio = path_dir+file.filename
-    output_audio = path_dir+f'{file.filename[:-idx_num]}.pcm'
+
     file_name = path_dir+file.filename
-    
     
     app.config["AUDIO_PATH"] = file_name
     return render_template('infer.html')
