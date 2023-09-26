@@ -41,6 +41,7 @@ class Evaluator(object):
         self.device = device
         self.num_workers = num_workers
         self.print_every = print_every
+        self.decode = decode
 
         if decode == 'greedy':
             self.search = GreedySearch(vocab)
@@ -61,7 +62,7 @@ class Evaluator(object):
         eval_loader.start()
 
         cer = self.search.search(model, eval_queue, self.device, self.print_every)
-        self.search.save_result('************Input Result.csv Path***********/%s.csv' % type(self).__name__)
+        self.search.save_result('./data/train_result/%s.csv' % type(self.decode).__name__)
 
         logger.info('Evaluate CER: %s' % cer)
         logger.info('evaluate() completed')
