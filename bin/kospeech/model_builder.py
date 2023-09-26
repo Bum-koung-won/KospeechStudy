@@ -353,10 +353,13 @@ def load_test_model(config: DictConfig, device: torch.device):
     model = torch.load(config.model_path, map_location=lambda storage, loc: storage).to(device)
 
     if isinstance(model, nn.DataParallel):
-        # model.module.decoder.device = device
-        # model.module.encoder.device = device
-        model.module.device = device
-        model.module.device = device
+        # DS2를 제외한 다른 architecture 사용 시
+        model.module.decoder.device = device
+        model.module.encoder.device = device
+        
+        # DS2 architecture 사용 시
+        # model.module.device = device
+        # model.module.device = device 
 
     else:
         model.encoder.device = device
