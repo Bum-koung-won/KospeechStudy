@@ -40,7 +40,7 @@ if torch.cuda.is_available():
 else:
     ondevice = 'cpu'
 
-path_dir = '*********Input audio path for inference*********'
+path_dir = '*********Input audio path(directory) for inference*********'
 
 @app.route('/')
 def index():
@@ -54,7 +54,7 @@ def upload_file():
 
     if file.filename == '':
         return 'No selected file.'
-    file.save(os.path.join("*********Input audio path for inference*********", file.filename))
+    file.save(os.path.join(path_dir, file.filename))
 
     file_name = path_dir+file.filename
     
